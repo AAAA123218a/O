@@ -1,0 +1,41 @@
+_0x4:AddToggle({
+    Name=__0xbd(3),
+    Default=false,
+    Callback=function(v)
+        local c=_0x1.Character
+        if c and c:FindFirstChild(__0xbd(4)) then
+            c.Humanoid.WalkSpeed=v and 100 or 16
+        end
+    end
+})
+
+_0x4:AddToggle({
+    Name=__0xbd(12),
+    Default=false,
+    Callback=function(v)
+        local c=_0x1.Character
+        if c and c:FindFirstChild(__0xbd(13)) then
+            c.Humanoid.JumpPower=v and 200 or 50
+        end
+    end
+})
+
+local _0x7=false
+
+game:GetService(__0xbd(9)).Stepped:Connect(function()
+    if _0x7 and _0x1.Character then
+        for _,v in pairs(_0x1.Character:GetDescendants()) do
+            if v:IsA(__0xbd(10)) then
+                v.CanCollide=false
+            end
+        end
+    end
+end)
+
+_0x4:AddToggle({
+    Name=__0xbd(14),
+    Default=false,
+    Callback=function(v)
+        _0x7=v
+    end
+})
