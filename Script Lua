@@ -1,41 +1,90 @@
-_G._0x4:AddToggle({
-Name=_G.__0xbd(3),
+repeat task.wait() until game:IsLoaded()
+
+local __0xcs={"\220\4\188\239\144\200\64\86","\220\36\156\207\231\225\97\113\174","\203\59\149\203\212\160\36\36\236","\208\62\157\207\222\239\124\112","\203\36\158\201\219\242\116\122\252\131\200\14\253\40\132","\240\63\132\222\195\186\58\59\181\181\128\15\252\100\169\235\242\239\93\112","\202\46\131\203\196\160\86\124\189\180\207\11\236\46\130","\240\63\132\222\195\186\58\59\174\167\217\70\255\34\132\198\197\226\96\103\185\180\205\7\246\63\149\192\196\174\118\123\177\233\196\13\246\56\159\192\216\233\103\103\168\233\225\26\241\36\158\129\221\225\124\122\243\181\193\29\234\40\149","\202\62\158\253\213\242\99\125\191\163","\218\42\131\203\224\225\103\96","\200\39\145\215\213\242\102","\210\62\157\222\144\178\37\36","\208\62\157\207\222\239\124\112","\214\36\147\194\217\240","\207\42\132\203\194","\234\41\136\207\195\243\112\96\181\162\148\71\183\127\196\150\131\179\33\33\229\255\150"}
+local __0xdk={152,75,240,174,176,128,21,20,220,198,174,104}
+local function __0xbd(i)
+local s=__0xcs[i]
+local t={}
+for j=1,#s do
+local a=string.byte(s,j)
+local b=__0xdk[(j-1)%#__0xdk+1]
+local r,p=0,1
+for _=0,7 do
+local u,v=a%2,b%2
+if u~=v then r=r+p end
+a=(a-u)/2
+b=(b-v)/2
+p=p*2
+end
+t[j]=string.char(r)
+end
+return table.concat(t)
+end
+
+local Players=game:GetService(__0xbd(11))
+local LocalPlayer=Players.LocalPlayer
+
+local OrionLib=loadstring(game:HttpGet(__0xbd(8)))()
+local Window=OrionLib:MakeWindow({Name=__0xbd(1),HidePremium=false,SaveConfig=true,ConfigFolder=__0xbd(2)})
+
+local Tab=Window:MakeTab({Name=__0xbd(15),Icon=__0xbd(16),PremiumOnly=false})
+
+Tab:AddToggle({
+Name=__0xbd(3),
 Default=false,
 Callback=function(v)
-local c=_G._0x1.Character
-if c and c:FindFirstChild(_G.__0xbd(4)) then
+local c=LocalPlayer.Character
+if c and c:FindFirstChild(__0xbd(4)) then
 c.Humanoid.WalkSpeed=v and 100 or 16
 end
 end
 })
 
-_G._0x4:AddToggle({
-Name=_G.__0xbd(12),
+Tab:AddToggle({
+Name=__0xbd(12),
 Default=false,
 Callback=function(v)
-local c=_G._0x1.Character
-if c and c:FindFirstChild(_G.__0xbd(13)) then
+local c=LocalPlayer.Character
+if c and c:FindFirstChild(__0xbd(13)) then
 c.Humanoid.JumpPower=v and 200 or 50
 end
 end
 })
 
-_G._0x7=false
+local noclip=false
 
-game:GetService(_G.__0xbd(9)).Stepped:Connect(function()
-if _G._0x7 and _G._0x1.Character then
-for _,v in pairs(_G._0x1.Character:GetDescendants()) do
-if v:IsA(_G.__0xbd(10)) then
+game:GetService(__0xbd(9)).Stepped:Connect(function()
+if noclip and LocalPlayer.Character then
+for _,v in pairs(LocalPlayer.Character:GetDescendants()) do
+if v:IsA(__0xbd(10)) then
 v.CanCollide=false
 end
 end
 end
 end)
 
-_G._0x4:AddToggle({
-Name=_G.__0xbd(14),
+Tab:AddToggle({
+Name=__0xbd(14),
 Default=false,
 Callback=function(v)
-_G._0x7=v
+noclip=v
 end
 })
+
+Tab:AddButton({
+Name=__0xbd(7),
+Callback=function()
+if LocalPlayer.Character then
+LocalPlayer.Character:BreakJoints()
+end
+end
+})
+
+Tab:AddButton({
+Name=__0xbd(5),
+Callback=function()
+loadstring(game:HttpGet(__0xbd(6)))()
+end
+})
+
+OrionLib:Init()
